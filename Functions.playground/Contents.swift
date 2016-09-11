@@ -91,3 +91,13 @@ let theSortedNumbers = sortEvenOdd(aBunchOfNumbers)
 print("The even numbers are: \(theSortedNumbers.evens); the odd numbers are \(theSortedNumbers.odds).")
 
 // optional returns types - if you may return something as nil '?'
+func grabMiddleName(name: (String, String?, String)) -> String? {
+    return name.1
+}
+
+let middleName = grabMiddleName(("James", "Tony", "Birchall"))
+if let theName = middleName {
+    print(theName)
+}
+
+// exiting early from a function
