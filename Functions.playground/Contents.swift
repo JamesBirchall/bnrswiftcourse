@@ -100,4 +100,50 @@ if let theName = middleName {
     print(theName)
 }
 
-// exiting early from a function
+// exiting early from a function - guard statements
+func greetByMiddleName2(name: (first: String, middle: String?, last: String)) -> String {
+    guard let middleName = name.middle else {
+        return "Hey there!"
+    }
+    
+    return "Hey \(middleName)"
+}
+print(greetByMiddleName2(("James", nil, "Birchall")))
+
+// function types - explicitly use function type and assigned a function to a variable
+// effectively function names are variables as well
+let evenOddFunction: ([Int]) -> ([Int], [Int]) = sortEvenOdd
+let sortedNumbers = evenOddFunction([1,4,5,6,7,8,9])
+print(sortedNumbers)
+
+// bronze challenge - only print middle name if <= 4 characters
+func greetByMiddleName3(name: (first: String, middle: String?, last: String)) -> String {
+    guard let middleName = name.middle where name.middle?.characters.count <= 4 else {
+        return "Hey there!"
+    }
+    
+    return "Hey \(middleName)"
+}
+print(greetByMiddleName3(("James", "Anthony", "Birchall")))
+
+// silver challenge
+func beanSifter(groceryList: [String]) -> (beans: [String], otherGroceries: [String]) {
+    var beans = [String]()
+    var otherGroceries = [String]()
+
+    for item in groceryList {
+        // does it contain suffix of 'beans' -> lower case
+        if item.lowercaseString.hasSuffix("beans") {
+            // beans found
+            beans.append(item)
+        } else {
+            otherGroceries.append(item)
+        }
+    }
+    
+    return (beans, otherGroceries)
+}
+
+let result = beanSifter(["green Beans","milk","black beans","pinto Beans","apples"])
+print(result.beans)
+print(result.otherGroceries)
