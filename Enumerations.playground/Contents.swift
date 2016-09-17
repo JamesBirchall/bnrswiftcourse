@@ -109,13 +109,24 @@ enum Lighbulb {
             return ambient
         }
     }
+    
+    // when modifying a structs state need to use mutating keyword on function to allow it
+    mutating func toggle() {
+        switch self{
+        case .On:
+            self = .Off
+        case .Off:
+            self = .On
+            
+        }
+    }
 }
 
 var bulb = Lighbulb.On
 
 let ambientTemperature = 77.0
 
-var bulbTemperature = bulb.surfaceTempratureForAmbientTemprature(ambientTemperature)
+var bulbTemperature = bulb.surfaceTempratureForAmbientTemprature(ambient: ambientTemperature)
 switch bulb {
 case .On:
     print("When on the bulb temperature is \(bulbTemperature).")
@@ -123,6 +134,74 @@ case .Off:
     print("When off the bulb temperature is \(bulbTemperature).")
 }
 
+bulb.toggle()
+switch bulb {
+case .On:
+    print("When on the bulb temperature is \(bulbTemperature).")
+case .Off:
+    print("When off the bulb temperature is \(bulbTemperature).")
+}
 
+// asociated values - cases with associated values
+
+enum shapeDimensions {  // should use lower camel case on structs now from swift 3.0
+    case square(Double)
+    
+    case rectangle(width: Double, height: Double)
+    
+    case triangle(width: Double, height: Double)
+    
+    func area() -> Double {
+        switch self {
+        case let .square(side):
+            return side * side
+        case let .rectangle(width, height):
+            return width * height
+        case let .triangle(width, height):
+            return (width * height) / 2
+        }
+    }
+    
+    func perimeter() -> Double? {
+        // bronze challenge
+        switch self {
+        case let .square(side):
+            return side * 4
+        case let .rectangle(width, height):
+            return (width * 2) + (height * 2)
+        default:
+            return nil
+        }
+    }
+}
+
+var squareShape = shapeDimensions.square(10.0)
+var rectangleShape = shapeDimensions.rectangle(width: 12.0, height: 10.0)
+
+print("Squares area = \(squareShape.area())")
+print("Rectangles are = \(rectangleShape.area())")
+
+// recursive enumerations - use indirect when recursive referencing so Swift nooes to treat memory model differently
+
+indirect enum familyTree {
+    case noKnownParents
+    case oneKnownParent(name: String, ancestors: familyTree)
+    case twoKnownParents(father: String, fatherAncestors: familyTree, mother: String, motherAncestor: familyTree)
+}
+
+let fredAncestors = familyTree.twoKnownParents(father: "Clive", fatherAncestors: .oneKnownParent(name: "Beth", ancestors: .noKnownParents), mother: "Sharon", motherAncestor: .noKnownParents)
+
+// bronze evidence:
+print("Squares perimeter = \(squareShape.perimeter())")
+print("Rectangle perimeter = \(rectangleShape.perimeter())")
+
+// silver challenge - adding triangle shape case    
+var triangleShape = shapeDimensions.triangle(width: 4.0, height: 3.0)
+print("Triangles area = \(triangleShape.area())")
+if let trianglePerimeter = triangleShape.perimeter() {
+    print("Triangles perimeter = \(trianglePerimeter)")
+} else {
+    print("Shape doesn't have correct perimeter calc built yet.")
+}
 
 
