@@ -30,7 +30,10 @@ class Monster {
     }
     
     // all subclasses must implement this at least
-    required init(town: Town?, monsterName: String) {
+    required init?(town: Town?, monsterName: String) {
+        if monsterName.characters.count < 1 {
+            return nil
+        }
         self.town = town
         self.name = monsterName
     }

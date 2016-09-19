@@ -26,6 +26,13 @@ fredTheZombie?.terrorizeTown()
 
 fredTheZombie = nil // forces a deinit - only optional types can become nil remember!
 
+let namelessMonster = Zombie(town: myTown, monsterName: "")
+if namelessMonster != nil {
+    print("\(namelessMonster?.name) is unleashed!")
+} else {
+    print("namelessMonster init failed and return nil!")
+}
+
 //let myVampire = Vampire(town: myTown2, monsterName: "BigVamps")
 //myVampire.terrorizeTown()
 //myVampire.terrorizeTown()

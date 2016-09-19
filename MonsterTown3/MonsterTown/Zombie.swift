@@ -13,13 +13,13 @@ class Zombie: Monster { // class feature called inheritance
     
     private(set) var isFallingApart: Bool   // others can read but not set the value
     
-    init(limp: Bool, fallingApart: Bool, town: Town?, monsterName: String) {
+    init?(limp: Bool, fallingApart: Bool, town: Town?, monsterName: String) {
         walksWithLimp = limp
         isFallingApart = fallingApart
         super.init(town: town, monsterName: monsterName)
     }
     
-    convenience init(limp: Bool, fallingApart: Bool) {
+    convenience init?(limp: Bool, fallingApart: Bool) {
         self.init(limp: limp, fallingApart: fallingApart, town: nil, monsterName: "Fred")
         
         if limp {
@@ -28,10 +28,9 @@ class Zombie: Monster { // class feature called inheritance
     }
     
     // from the super class - required to implement and use the required keyword!
-    required init(town: Town?, monsterName: String) {
-        walksWithLimp = false
-        isFallingApart = false
-        super.init(town: town, monsterName: monsterName)
+    // made convinience by setting to convinience and setting defaults in the self.init
+    convenience required init?(town: Town?, monsterName: String) {
+        self.init(limp: false, fallingApart: false, town: town, monsterName: monsterName)
     }
     
     // re-write a method on its super class of Monster

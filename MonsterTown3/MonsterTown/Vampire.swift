@@ -12,7 +12,7 @@ class Vampire: Monster {
     
     static var vampireHorde: [Vampire] = []    // will store vampires and be class available
     
-    required init(town: Town?, monsterName: String) {
+    required init?(town: Town?, monsterName: String) {
         super.init(town: town, monsterName: monsterName)
     }
     
@@ -25,10 +25,10 @@ class Vampire: Monster {
         }
         
         let newVampire = Vampire(town: town, monsterName: "N/A")
-        newVampire.name = "Vampire Agent\(Vampire.vampireHorde.count)"
+        newVampire?.name = "Vampire Agent\(Vampire.vampireHorde.count)"
         if let cloneTown = self.town {
-            newVampire.town  = cloneTown
+            newVampire?.town  = cloneTown
         }
-        Vampire.vampireHorde.append(newVampire)
+        Vampire.vampireHorde.append(newVampire!)
     }
 }
