@@ -79,6 +79,61 @@ class Lexer {
     }
 }
 
+class Parser {
+    
+    enum parseErrors: Error {
+        case UnexpectedEndOfInput
+        case InvalidToken(Token)
+    }
+    
+    var tokens: [Token]
+    var position = 0
+    
+    init(tokens: [Token]) {
+        self.tokens = tokens
+    }
+    
+    func getNextToken() -> Token? {
+        guard position < tokens.count else {
+            return nil
+        }
+
+        let positionToReturn = position
+        
+        position = position + 1
+        
+        return tokens[positionToReturn]
+    }
+    
+    func getNumber() throws -> Int {
+        guard let token = getNextToken() else {
+            throw parseErrors.UnexpectedEndOfInput
+        }
+        
+        switch token {
+        case .Number(let value):
+            return value
+        case .Plus:
+            throw parseErrors.InvalidToken(token)
+        }
+    }
+    
+    func parse() throws -> Int {
+        var value = try getNumber()
+
+        while let token = getNextToken() {
+            switch token {
+            case .Plus:
+                let nextNumber = try getNumber()
+                value += nextNumber
+            case .Number:
+                throw parseErrors.InvalidToken(token)
+            }
+        }
+        return value
+    }
+}
+
 func evaluate(input: String) {
     print("Evaulating: \(input)")
     let lexer = Lexer(input: input)
@@ -86,8 +141,16 @@ func evaluate(input: String) {
     do {
         let tokens = try lexer.lex()
         print("Lexer output: \(tokens)")
+        
+        let parser = Parser(tokens: tokens)
+        let result = try parser.parse()
+        print("Parser output: \(result)")
     } catch Lexer.error.InvalidCharacter(let character) {
         print("Input contained an invalid character: \(character)")
+    } catch Parser.parseErrors.UnexpectedEndOfInput {
+        print("Unexpected end of input during parsing")
+    } catch Parser.parseErrors.InvalidToken(let token) {
+        print("Invalid token found during parsing: \(token)")
     } catch {
         print("An error occured: \(error)")
     }
