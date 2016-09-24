@@ -17,7 +17,7 @@ class Lexer {
     
     init(input: String) {
         self.input = input.characters
-        self.position = input.startIndex
+        self.position = self.input.startIndex
     }
     
     // returns Character optional if can find one
@@ -50,6 +50,7 @@ class Lexer {
                 // start of number - need to get rest of it
             case "+":
                 tokens.append(.Plus)
+                advance()
             case " ":
                 // nothing to do but advance
                 advance()
@@ -90,5 +91,5 @@ func evaluate(input: String) {
     }
 }
 
-//evaluate(input: "10 + 3 + 5")
-//evaluate(input: "1 + 2 + abcdefg")
+evaluate(input: "10 + 3 + 5")
+evaluate(input: "1 + 2 + abcdefg")
