@@ -6,6 +6,7 @@ enum Token {
     case Number(Int, Int) // to capture range of this value
     case Plus(Int)
     case Minus(Int)
+    case Multiply(Int)
 }
 
 class Lexer {
@@ -57,6 +58,9 @@ class Lexer {
             case "-":
                 tokens.append(.Minus(startingIndex))
                 advance()
+            case "*":
+                tokens.append(.Multiply(startingIndex))
+                advance()
             case " ":
                 // nothing to do but advance
                 advance()
@@ -82,6 +86,7 @@ class Lexer {
             default:
                 return value
             }
+            
         }
         return value
     }
@@ -124,14 +129,26 @@ class Parser {
         switch token {
         case .Number(let value, let startingIndex):
             return value
-        case .Plus(let startingIndex), .Minus(let startingIndex):
+        case .Plus(let startingIndex), .Minus(let startingIndex), .Multiply(let startingIndex):
             throw parseErrors.InvalidToken(token, startingIndex)
         }
     }
     
     func parse() throws -> Int {
         var value = try getNumber()
+        
+        var locationOfMultiplys = [Int]()
+        
+        for token in tokens {
+            switch token {
+            case .Multiply:
+                break
+            default:
+                break
+            }
+        }
 
+        // before we get to this look we should minimise the tokens array to take out all multply valyes and replace with a + number, removing number * number
         while let token = getNextToken() {
             switch token {
             case .Plus:
@@ -140,8 +157,10 @@ class Parser {
             case .Minus:
                 let nextNumber = try getNumber()
                 value -= nextNumber
-            case .Number(let value, let startingPosition):
+            case .Number(let _, let startingPosition):
                 throw parseErrors.InvalidToken(token, startingPosition+1)
+            default: break
+                // throw error - unknown error in this case
             }
         }
         return value
@@ -172,7 +191,9 @@ func evaluate(input: String) {
 
 //evaluate(input: "1 + 3 * 7a + 8")
 
-evaluate(input: "10 + 3 3 + 7")
+//evaluate(input: "10 + 3 3 + 7")
 
-// so in order to get actual position, error was at index 4, with number 3
-// in order to get actual placement, what should I be doing?...
+evaluate(input: "100 + 5 * 2")
+
+// now look at * - this then needs to also take precedence in to account
+// search through tokens for * or /, if finds, take before/after and do the equation, then remove those 3 items and replace with a value, then re-run.
