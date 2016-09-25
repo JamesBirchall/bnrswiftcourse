@@ -7,6 +7,7 @@ enum Token {
     case Plus(Int)
     case Minus(Int)
     case Multiply(Int)
+    case Divide(Int)
 }
 
 class Lexer {
@@ -60,6 +61,9 @@ class Lexer {
                 advance()
             case "*":
                 tokens.append(.Multiply(startingIndex))
+                advance()
+            case "/":
+                tokens.append(.Divide(startingIndex))
                 advance()
             case " ":
                 // nothing to do but advance
@@ -129,24 +133,13 @@ class Parser {
         switch token {
         case .Number(let value, let startingIndex):
             return value
-        case .Plus(let startingIndex), .Minus(let startingIndex), .Multiply(let startingIndex):
+        case .Plus(let startingIndex), .Minus(let startingIndex), .Multiply(let startingIndex), .Divide(let startingIndex):
             throw parseErrors.InvalidToken(token, startingIndex)
         }
     }
     
     func parse() throws -> Int {
         var value = try getNumber()
-        
-        var locationOfMultiplys = [Int]()
-        
-        for token in tokens {
-            switch token {
-            case .Multiply:
-                break
-            default:
-                break
-            }
-        }
 
         // before we get to this look we should minimise the tokens array to take out all multply valyes and replace with a + number, removing number * number
         while let token = getNextToken() {
@@ -165,6 +158,52 @@ class Parser {
         }
         return value
     }
+    
+    func parseMultiplyDivide() throws  {
+        position = tokens.startIndex
+        while let token = getNextToken() {
+            switch token {
+            case  .Multiply :
+                if position > 1 {
+                    position -= 2
+                    var value = try getNumber()
+                    position += 1
+                    
+                    let nextNumber = try getNumber()
+                    let oldValue = value
+                    value *= nextNumber
+                    print("Found Multiply: \(oldValue) * \(nextNumber) = \(value)")
+                    position = position - 1
+                    tokens.remove(at: position)
+                    position = position - 1
+                    tokens.remove(at: position)
+                    position = position - 1
+                    tokens[position] = .Number(value, position)
+                }
+            case  .Divide :
+                if position > 1 {
+                    position -= 2
+                    var value = try getNumber()
+                    position = position + 1
+                    
+                    let nextNumber = try getNumber()
+                    let oldValue = value
+                    value /= nextNumber
+                    print("Found Multiply: \(oldValue) / \(nextNumber) = \(value)")
+                    position = position - 1
+                    tokens.remove(at: position)
+                    position = position - 1
+                    tokens.remove(at: position)
+                    position = position - 1
+                    tokens[position] = .Number(value, position)
+                }
+            default: break
+            }
+        }
+        
+        position = 0    // reset position to allow for redos
+        return
+    }
 }
 
 func evaluate(input: String) {
@@ -176,6 +215,8 @@ func evaluate(input: String) {
         print("Lexer output: \(tokens)")
         
         let parser = Parser(tokens: tokens, input: input)
+        // gold challenge
+        try parser.parseMultiplyDivide()    //parse through all * / first to reduce to +/- easily
         let result = try parser.parse()
         print("Parser output: \(result)")
     } catch Lexer.error.InvalidCharacter(let character, let position) {
@@ -193,7 +234,10 @@ func evaluate(input: String) {
 
 //evaluate(input: "10 + 3 3 + 7")
 
-evaluate(input: "100 + 5 * 2")
+evaluate(input: "10 * 3 + 5 * 3")
+evaluate(input: "10 + 3 * 5 + 3")
+evaluate(input: "10 + 3 * 5 * 3")
+//evaluate(input: "10 + 3 *+ 5 * 3")
 
 // now look at * - this then needs to also take precedence in to account
 // search through tokens for * or /, if finds, take before/after and do the equation, then remove those 3 items and replace with a value, then re-run.
