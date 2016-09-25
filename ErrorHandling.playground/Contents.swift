@@ -3,9 +3,9 @@
 import Cocoa
 
 enum Token {
-    case Number(Int)
-    case Plus
-    case Minus
+    case Number(Int, Int) // to capture range of this value
+    case Plus(Int)
+    case Minus(Int)
 }
 
 class Lexer {
@@ -16,6 +16,7 @@ class Lexer {
     
     let input: String.CharacterView
     var position: String.CharacterView.Index
+    var startingIndex = 0
     
     init(input: String) {
         self.input = input.characters
@@ -48,13 +49,13 @@ class Lexer {
                 // range 0 - 9 characters
             case "0" ... "9":
                 let value = getNumber()
-                tokens.append(.Number(value))
-                // start of number - need to get rest of it
+                // work out the index value range
+                tokens.append(.Number(value, startingIndex))
             case "+":
-                tokens.append(.Plus)
+                tokens.append(.Plus(startingIndex))
                 advance()
             case "-":
-                tokens.append(.Minus)
+                tokens.append(.Minus(startingIndex))
                 advance()
             case " ":
                 // nothing to do but advance
@@ -62,6 +63,8 @@ class Lexer {
             default:
                 throw error.InvalidCharacter(nextCharacter, input.distance(from: input.startIndex, to: input.index(of: input[position])!))
             }
+            
+            startingIndex = startingIndex + 1
         }
         return tokens
     }
@@ -94,9 +97,11 @@ class Parser {
     
     var tokens: [Token]
     var position = 0
+    let input: String.CharacterView
     
-    init(tokens: [Token]) {
+    init(tokens: [Token], input: String) {
         self.tokens = tokens
+        self.input = input.characters
     }
     
     func getNextToken() -> Token? {
@@ -117,10 +122,10 @@ class Parser {
         }
         
         switch token {
-        case .Number(let value):
+        case .Number(let value, let startingIndex):
             return value
-        case .Plus, .Minus:
-            throw parseErrors.InvalidToken(token, position)
+        case .Plus(let startingIndex), .Minus(let startingIndex):
+            throw parseErrors.InvalidToken(token, startingIndex)
         }
     }
     
@@ -135,8 +140,8 @@ class Parser {
             case .Minus:
                 let nextNumber = try getNumber()
                 value -= nextNumber
-            case .Number:
-                throw parseErrors.InvalidToken(token, position)
+            case .Number(let value, let startingPosition):
+                throw parseErrors.InvalidToken(token, startingPosition+1)
             }
         }
         return value
@@ -151,7 +156,7 @@ func evaluate(input: String) {
         let tokens = try lexer.lex()
         print("Lexer output: \(tokens)")
         
-        let parser = Parser(tokens: tokens)
+        let parser = Parser(tokens: tokens, input: input)
         let result = try parser.parse()
         print("Parser output: \(result)")
     } catch Lexer.error.InvalidCharacter(let character, let position) {
@@ -168,3 +173,6 @@ func evaluate(input: String) {
 //evaluate(input: "1 + 3 * 7a + 8")
 
 evaluate(input: "10 + 3 3 + 7")
+
+// so in order to get actual position, error was at index 4, with number 3
+// in order to get actual placement, what should I be doing?...
