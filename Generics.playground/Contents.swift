@@ -34,6 +34,18 @@ struct StackGenerator<T>: IteratorProtocol {
 struct Stack<Element>: Sequence {
     var items = [Element]()
     
+    func filter(f: (Element) -> Bool) -> Stack<Element> {
+        var filterItems = Stack<Element>()
+        
+        for item in items {
+            if f(item) {
+                filterItems.push(newItem: item)
+            }
+        }
+        
+        return filterItems
+    }
+    
     func makeIterator() -> StackGenerator<Element> {
         return StackGenerator(stack: self)
     }
@@ -182,3 +194,45 @@ print("--------")
 for item in myStack3 {
     print("\(item)")
 }
+
+let item = 3
+
+// bronze challange working: a filter function which take a closure
+let stackFiltered = myStack3.filter(f: { $0 == item })
+print(stackFiltered.items)  // proof filters on 3
+
+// silver challenge
+//func findAll<T: Equatable>(items: [T], check: T) -> [Int?] {
+//    var foundItems = [Int?]()
+//    var location = 0
+//    
+//    for item in items {
+//        if item == check {
+//            // add in position where this item was match in items
+//            foundItems.append(location)
+//        }
+//        location = location + 1
+//    }
+//    return foundItems
+//}
+
+//print(findAll(items: [5,3,7,3,9], check: 3))
+
+// gold challenge - I think this is right - we return just those items, like a filter!
+func findAll<T: Collection, U: Equatable>(items: T, check: U) -> [U] where T.Iterator.Element == U {
+    var foundItems = [U]()
+
+    for item in items {
+        if item == check {
+            // add in position where this item was match in items
+            let object = item
+            foundItems.append(object)
+        }
+    }
+    return foundItems
+}
+print(findAll(items: [5,3,7,3,9], check: 3))
+
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+
+print(findAll(items: favoriteGenres, check: "Hip hop"))
