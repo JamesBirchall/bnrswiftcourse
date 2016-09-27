@@ -31,8 +31,12 @@ struct StackGenerator<T>: IteratorProtocol {
 }
 
 // Element = placeholder, so we can use any type in this stack
-struct Stack<Element> {
+struct Stack<Element>: Sequence {
     var items = [Element]()
+    
+    func makeIterator() -> StackGenerator<Element> {
+        return StackGenerator(stack: self)
+    }
     
     mutating func push(newItem: Element) {
         items.append(newItem)
@@ -151,4 +155,30 @@ while let value = myStackGenerator.next() {
     print("got \(value)")
 }
 
+// haha - it worked! - Iterator protocol (replaces whatever was used in Swift 2)
+//for item in myStack3 {
+//    print("\(item)")
+//}
 
+// type constraint where clauses
+func pushItemsOntoStack<Element, S: Sequence>(stack: inout Stack<Element>, fromSequence sequence: S) where S.Iterator.Element == Element {
+    for item in sequence {
+        stack.push(newItem: item)
+    }
+}
+
+pushItemsOntoStack(stack: &myStack3, fromSequence: [1, 2, 3])
+
+for item in myStack3 {
+    print("\(item)")
+}
+
+var myOtherStack = Stack<Int>()
+pushItemsOntoStack(stack: &myOtherStack, fromSequence: [3,2,1])
+
+pushItemsOntoStack(stack: &myStack3, fromSequence: myOtherStack)
+
+print("--------")
+for item in myStack3 {
+    print("\(item)")
+}
