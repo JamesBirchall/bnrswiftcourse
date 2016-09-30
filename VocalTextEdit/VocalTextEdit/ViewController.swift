@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
     
     let speechSynthesiser = NSSpeechSynthesizer()
 
@@ -32,6 +32,7 @@ class ViewController: NSViewController {
             // silver challenge - not finished
             // hide the speak button until its finished
             speakBUtton.isEnabled = false
+            stopButton.isEnabled = true
             
         } else {
             speechSynthesiser.startSpeaking("Please enter some words for me to speak.")
@@ -42,8 +43,21 @@ class ViewController: NSViewController {
         if speechSynthesiser.isSpeaking {
             speechSynthesiser.stopSpeaking()
             // silver challenge
-            
+            speakBUtton.isEnabled = true
+            stopButton.isEnabled = false
         }
+    }
+    
+    // delegate call for view has loaded so we can disable stop button
+    override func viewDidAppear() {
+        stopButton.isEnabled = false
+    }
+    
+    // delegate call for SPeechSynth to detect finishing speaking
+    func speechSynthesizer(_ sender: NSSpeechSynthesizer, didFinishSpeaking finishedSpeaking: Bool) {
+        // we want to enable the Speak button again and disable the Stop one
+        speakBUtton.isEnabled = true
+        stopButton.isEnabled = false
     }
 }
 
