@@ -702,7 +702,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="stopButtonClickedWithSender:" target="5gI-5U-AMq" id="Yyz-aF-7ca"/>
+                                    <action selector="stopButtonClickedWithSender:" target="5gI-5U-AMq" id="Rmk-az-sF1"/>
                                 </connections>
                             </button>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgK-Jj-rGG">
@@ -744,6 +744,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="speakBUtton" destination="ppB-2j-O9m" id="bo4-ag-Tmu"/>
+                        <outlet property="stopButton" destination="9ok-T1-ecD" id="NXl-ur-aNA"/>
                         <outlet property="textView" destination="BDy-BQ-OX3" id="xtB-jc-IVB"/>
                     </connections>
                 </viewController>
