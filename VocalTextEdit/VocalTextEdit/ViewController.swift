@@ -18,6 +18,10 @@ class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
     @IBOutlet weak var progressMeter: NSProgressIndicator!
     @IBOutlet weak var progressTextField: NSTextField!
     
+    var wordsPerSecond: Int?
+    
+    var wordsReadUpTo: Int = 0
+    
     var contents: String? {
         get {
             return textView.string
@@ -29,25 +33,42 @@ class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
     }
     
     @IBAction func speakButtonClicked(sender: NSButton) {
+        speechSynthesiser.delegate = self
+        
+        print("Speak button pressed")
         if let contents = textView.string , contents != "" {
+            
+            wordsReadUpTo = 0
+            // reset progress meter
+            progressMeter.increment(by: -(progressMeter.maxValue))
+            
+            wordsPerSecond = Int(speechSynthesiser.rate) / 60    // words per minute rate of speaking
+            
+            if let totalWords = numberOfWords() {
+                let totalEstimatedTime = wordsPerSecond! * totalWords
+                
+                // progress meter settings
+                progressMeter.maxValue = Double(totalEstimatedTime)
+            }
+            
+            progressMeter.startAnimation(nil)
+            // Start Audio now as well
             speechSynthesiser.startSpeaking(contents)
             // silver challenge - not finished
             // hide the speak button until its finished
             speakBUtton.isEnabled = false
             stopButton.isEnabled = true
-            
         } else {
             speechSynthesiser.startSpeaking("Please enter some words for me to speak.")
+            speakBUtton.isEnabled = true
+            stopButton.isEnabled = false
         }
     }
     
     @IBAction func stopButtonClicked(sender: NSButton) {
-        if speechSynthesiser.isSpeaking {
-            speechSynthesiser.stopSpeaking()
-            // silver challenge
-            speakBUtton.isEnabled = true
-            stopButton.isEnabled = false
-        }
+        speakBUtton.isEnabled = true
+        stopButton.isEnabled = false
+        progressMeter.stopAnimation(nil)
     }
     
     // delegate call for view has loaded so we can disable stop button
@@ -56,10 +77,27 @@ class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
     }
     
     // delegate call for SPeechSynth to detect finishing speaking
+    
     func speechSynthesizer(_ sender: NSSpeechSynthesizer, didFinishSpeaking finishedSpeaking: Bool) {
         // we want to enable the Speak button again and disable the Stop one
-        speakBUtton.isEnabled = true
-        stopButton.isEnabled = false
+        if finishedSpeaking {
+            speakBUtton.isEnabled = true
+            stopButton.isEnabled = false
+            progressMeter.stopAnimation(nil)
+            progressMeter.increment(by: progressMeter.maxValue)
+        }
+    }
+    
+    func speechSynthesizer(_ sender: NSSpeechSynthesizer, willSpeakWord characterRange: NSRange, of string: String) {
+        progressMeter.increment(by: Double(wordsPerSecond!))
+        
+        wordsReadUpTo = wordsReadUpTo + 1
+        progressTextField.stringValue = "\(wordsReadUpTo) / \(numberOfWords()) Words - Average \(wordsPerSecond) Words Per Second."
+    }
+    
+    // function to calculate number of words available in the document when hitting speak
+    func numberOfWords() -> Int? {
+        return contents?.components(separatedBy: " ").count
     }
 }
 
