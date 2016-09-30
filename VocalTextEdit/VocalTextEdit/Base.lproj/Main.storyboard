@@ -731,13 +731,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <progressIndicator wantsLayer="YES" misplaced="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="SNi-q7-k08">
+                            <progressIndicator hidden="YES" wantsLayer="YES" misplaced="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="SNi-q7-k08">
                                 <rect key="frame" x="20" y="190" width="438" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="nV6-6s-HdY"/>
                                 </constraints>
                             </progressIndicator>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m8s-Po-CyZ">
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m8s-Po-CyZ">
                                 <rect key="frame" x="20" y="157" width="440" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cyz-0q-0oj"/>

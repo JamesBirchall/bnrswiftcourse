@@ -20,7 +20,7 @@ class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
     
     var wordsPerSecond: Int?
     
-    var wordsReadUpTo: Int = 0
+    var wordsReadUpTo: Int = 1
     
     var contents: String? {
         get {
@@ -34,6 +34,10 @@ class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
     
     @IBAction func speakButtonClicked(sender: NSButton) {
         speechSynthesiser.delegate = self
+        
+        // unhide elements
+        progressMeter.isHidden = false
+        progressTextField.isHidden = false
         
         print("Speak button pressed")
         if let contents = textView.string , contents != "" {
@@ -66,9 +70,13 @@ class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
     }
     
     @IBAction func stopButtonClicked(sender: NSButton) {
+        speechSynthesiser.stopSpeaking()
         speakBUtton.isEnabled = true
         stopButton.isEnabled = false
         progressMeter.stopAnimation(nil)
+        // hide progress meter again
+        progressMeter.isHidden = true
+        progressTextField.isHidden = true
     }
     
     // delegate call for view has loaded so we can disable stop button
