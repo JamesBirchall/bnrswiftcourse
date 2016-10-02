@@ -22,6 +22,9 @@ class ViewController: UIViewController {
         toDoList.addItem(item: text)
         
         todoTableView.reloadData()  // refresh data after adding to items array
+        
+        // silver challange part 1 - clear box
+        itemTextField.text = ""
     }
     
     // setup the tableView properly after loading views

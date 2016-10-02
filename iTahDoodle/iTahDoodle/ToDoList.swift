@@ -33,9 +33,8 @@ class ToDoList: NSObject {
         // until we have a valid string?...
         if item.characters.count != 0 && item != " " {
             items.insert(item, at: 0)   // add to front of list
+            saveItems() // update items file on disk
         }
-        
-        saveItems() // update items file on disk
     }
 }
 
