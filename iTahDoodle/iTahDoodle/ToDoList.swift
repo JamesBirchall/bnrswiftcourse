@@ -76,3 +76,17 @@ extension ToDoList: UITableViewDataSource {
         }
     }
 }
+
+// xetension to deal with tableViewDelegate
+extension ToDoList: UITableViewDelegate {
+    
+    @objc(tableView:commitEditingStyle:forRowAtIndexPath:) func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // remove item from items
+            items.remove(at: indexPath.row)
+            // remove from table View
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            saveItems()
+        }
+    }
+}
