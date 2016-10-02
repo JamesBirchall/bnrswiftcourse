@@ -43,7 +43,9 @@ extension ToDoList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // setup a re-use pool to allow better usability performance
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        // silver challenge - control Cell Re-use from within the model/delegate class
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .default, reuseIdentifier: "Cell")
         
         // set to expected text value form items array
         cell.textLabel?.text = items[indexPath.row]

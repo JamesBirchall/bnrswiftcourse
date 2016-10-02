@@ -29,12 +29,9 @@ class ViewController: UIViewController {
     
     // setup the tableView properly after loading views
     override func viewDidLoad() {
-        todoTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        // can we make todoTableView give back its reuse UI & Cell?
+        // todoTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         todoTableView.dataSource = toDoList
     }
-}
-
-extension ViewController {
-    
-    
 }
