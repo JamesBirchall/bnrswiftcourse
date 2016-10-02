@@ -12,6 +12,20 @@ class ToDoList: NSObject {
     
     fileprivate var items: [String] = []    // setup and initailise empty - fileprivate allows use in code file only
     
+    // computed property to get saved data
+    fileprivate let fileURL: URL = {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+        let url = documentsURL.appendingPathComponent("todolist.item").absoluteURL
+        
+        return url
+    }()
+    
+    override init() {
+        super.init()
+        loadItems() // load on launching old list data
+    }
+    
     func addItem(item: String) {
         
         // check for simple space or no value before committing to the index
@@ -20,6 +34,8 @@ class ToDoList: NSObject {
         if item.characters.count != 0 && item != " " {
             items.insert(item, at: 0)   // add to front of list
         }
+        
+        saveItems() // update items file on disk
     }
 }
 
@@ -38,5 +54,24 @@ extension ToDoList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
+    }
+    
+    func saveItems() {
+        let itemsArray = items as NSArray   // bridging
+        print("Saving items to \(fileURL)")
+        
+        if !itemsArray.write(to: fileURL, atomically: true) {
+            print("Saving failed.")
+        }
+        
+    }
+    
+    func loadItems() {
+        if let itemsArray = NSArray(contentsOf: fileURL) as? [String]{
+            items = itemsArray
+            print("Items loaded from disk location \(fileURL)")
+        } else {
+            print("Loading failed.")
+        }
     }
 }
