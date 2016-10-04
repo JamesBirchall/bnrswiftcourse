@@ -13,5 +13,6 @@ class Contact: NSObject {
     
     init(contactName: String) {
         name = contactName
+        super.init()
     }
 }

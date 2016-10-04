@@ -15,6 +15,7 @@
 		4526673A1DA2F0C8001A8A7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 452667381DA2F0C8001A8A7B /* LaunchScreen.storyboard */; };
 		452667431DA2F4AF001A8A7B /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452667421DA2F4AF001A8A7B /* Contacts.swift */; };
 		452667451DA2F717001A8A7B /* NewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452667441DA2F717001A8A7B /* NewContactViewController.swift */; };
+		452667481DA37B41001A8A7B /* NewDefaultImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 452667471DA37B41001A8A7B /* NewDefaultImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		452667411DA2F4AE001A8A7B /* Contacts-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Contacts-Bridging-Header.h"; sourceTree = "<group>"; };
 		452667421DA2F4AF001A8A7B /* Contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		452667441DA2F717001A8A7B /* NewContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewContactViewController.swift; sourceTree = "<group>"; };
+		452667461DA37B41001A8A7B /* NewDefaultImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDefaultImage.h; sourceTree = "<group>"; };
+		452667471DA37B41001A8A7B /* NewDefaultImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDefaultImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,8 @@
 				452667441DA2F717001A8A7B /* NewContactViewController.swift */,
 				452667421DA2F4AF001A8A7B /* Contacts.swift */,
 				452667331DA2F0C8001A8A7B /* Main.storyboard */,
+				452667461DA37B41001A8A7B /* NewDefaultImage.h */,
+				452667471DA37B41001A8A7B /* NewDefaultImage.m */,
 				452667361DA2F0C8001A8A7B /* Assets.xcassets */,
 				452667381DA2F0C8001A8A7B /* LaunchScreen.storyboard */,
 				4526673B1DA2F0C8001A8A7B /* Info.plist */,
@@ -162,6 +167,7 @@
 			files = (
 				452667431DA2F4AF001A8A7B /* Contacts.swift in Sources */,
 				452667451DA2F717001A8A7B /* NewContactViewController.swift in Sources */,
+				452667481DA37B41001A8A7B /* NewDefaultImage.m in Sources */,
 				452667321DA2F0C8001A8A7B /* ContactsViewController.m in Sources */,
 				4526672F1DA2F0C8001A8A7B /* AppDelegate.m in Sources */,
 				4526672C1DA2F0C8001A8A7B /* main.m in Sources */,
@@ -328,6 +334,7 @@
 				452667401DA2F0C8001A8A7B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

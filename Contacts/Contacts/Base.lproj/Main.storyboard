@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -43,36 +44,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m0y-XP-4nO">
-                                <frame key="frameInset" minX="139" minY="72" width="220" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m0y-XP-4nO">
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWP-jx-cT2">
-                                <frame key="frameInset" minX="139" minY="110" width="220" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWP-jx-cT2">
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkX-G7-xIb">
-                                <frame key="frameInset" minX="16" minY="77" width="115" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkX-G7-xIb">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="fOI-5h-0hh"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJT-EM-Jdn">
-                                <frame key="frameInset" minX="16" minY="115" width="115" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJT-EM-Jdn">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kha-4M-bzS">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="MND-f0-af0"/>
+                                    <constraint firstAttribute="width" constant="240" id="ZKm-xA-Pfn"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="m0y-XP-4nO" firstAttribute="top" secondItem="1YI-E2-S8l" secondAttribute="bottom" constant="8" symbolic="YES" id="32W-k2-2GW"/>
+                            <constraint firstItem="Kha-4M-bzS" firstAttribute="centerY" secondItem="d1e-Pd-upK" secondAttribute="centerY" id="J7z-rw-7Yt"/>
+                            <constraint firstItem="m0y-XP-4nO" firstAttribute="trailing" secondItem="qWP-jx-cT2" secondAttribute="trailing" id="MUm-zr-tUP"/>
+                            <constraint firstItem="m0y-XP-4nO" firstAttribute="leading" secondItem="qWP-jx-cT2" secondAttribute="leading" id="P7W-q0-5XG"/>
+                            <constraint firstItem="Kha-4M-bzS" firstAttribute="centerX" secondItem="d1e-Pd-upK" secondAttribute="centerX" id="RLj-Lw-EI4"/>
+                            <constraint firstItem="m0y-XP-4nO" firstAttribute="trailing" secondItem="d1e-Pd-upK" secondAttribute="trailingMargin" id="XGn-fO-Pn4"/>
+                            <constraint firstItem="m0y-XP-4nO" firstAttribute="leading" secondItem="hkX-G7-xIb" secondAttribute="trailing" constant="8" symbolic="YES" id="aHo-ID-ill"/>
+                            <constraint firstItem="qWP-jx-cT2" firstAttribute="top" secondItem="m0y-XP-4nO" secondAttribute="bottom" constant="8" symbolic="YES" id="aQC-zi-iyw"/>
+                            <constraint firstItem="qWP-jx-cT2" firstAttribute="leading" secondItem="MJT-EM-Jdn" secondAttribute="trailing" constant="8" symbolic="YES" id="aQz-ia-qrN"/>
+                            <constraint firstItem="hkX-G7-xIb" firstAttribute="leading" secondItem="d1e-Pd-upK" secondAttribute="leadingMargin" id="gTI-Qf-tp2"/>
+                            <constraint firstItem="MJT-EM-Jdn" firstAttribute="centerY" secondItem="qWP-jx-cT2" secondAttribute="centerY" id="kb7-a9-V6h"/>
+                            <constraint firstItem="hkX-G7-xIb" firstAttribute="leading" secondItem="MJT-EM-Jdn" secondAttribute="leading" id="lPZ-Dk-hHZ"/>
+                            <constraint firstItem="hkX-G7-xIb" firstAttribute="centerY" secondItem="m0y-XP-4nO" secondAttribute="centerY" id="zGQ-G1-Li2"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xGv-WE-m97">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bEU-eq-9cF">
@@ -80,9 +97,14 @@
                                 <segue destination="H4B-ti-ael" kind="unwind" unwindAction="cancelToContactsViewController:" id="qu4-wp-dVR"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="LTd-po-Ei2"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="LTd-po-Ei2">
+                            <connections>
+                                <segue destination="H4B-ti-ael" kind="unwind" unwindAction="createNewContact:" id="I8X-Rp-iwF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="contentImageView" destination="Kha-4M-bzS" id="BSr-nG-WEc"/>
                         <outlet property="firstNameTextField" destination="m0y-XP-4nO" id="ij4-NX-UD0"/>
                         <outlet property="lastNameTextFIeld" destination="qWP-jx-cT2" id="HiV-TY-tBM"/>
                     </connections>

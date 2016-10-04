@@ -59,4 +59,20 @@
     // no action to take
 }
 
+- (IBAction)createNewContact:(UIStoryboardSegue *)sender {
+    NewContactViewController * contactVC = sender.sourceViewController;
+    
+    NSString *firstName = contactVC.firstNameTextField.text;
+    NSString *lastName = contactVC.lastNameTextFIeld.text;
+    
+    if (firstName.length != 0 && lastName.length != 0) {
+        NSString *contactName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+        
+        Contact *newContact = [[Contact alloc] initWithContactName:contactName];
+        
+        [self.contactsList addObject:newContact];
+        [self.tableView reloadData];
+    }
+}
+
 @end
