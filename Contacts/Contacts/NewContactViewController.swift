@@ -12,10 +12,7 @@ class NewContactViewController: UIViewController {
     
     @IBOutlet var firstNameTextField: UITextField!
     @IBOutlet var lastNameTextFIeld: UITextField!
-    
     @IBOutlet var contentImageView: UIImageView!
-    
-
 }
 
 extension NewContactViewController {

@@ -9,10 +9,13 @@
 import Foundation
 
 class Contact: NSObject {
-    let name: String
+    let firstName: String
+    let secondName: String
     
-    init(contactName: String) {
-        name = contactName
+    init(firstName: String, secondName: String) {
+        self.firstName = firstName
+        self.secondName = secondName
+        
         super.init()
     }
 }
