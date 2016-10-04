@@ -19,11 +19,27 @@ class NewContactViewController: UIViewController {
 }
 
 extension NewContactViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    
+    
+// - Book code - this is wrong as we won't have constraints set yet so taking
+//   the image.frame.size would give us just an unknown
+// see - http://stackoverflow.com/questions/29675128/objective-c-swift-ios-when-are-the-auto-constraints-applied-in-the-view-viewco
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        contentImageView.image = NewDefaultImage.generate(of: (contentImageView.frame.size))
+//        
+//        print(contentImageView.frame.size);
+//    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    
         contentImageView.image = NewDefaultImage.generate(of: (contentImageView.frame.size))
         
         print(contentImageView.frame.size);
     }
 }
+
+
