@@ -34,8 +34,6 @@ extension NewContactViewController {
         super.viewDidLayoutSubviews()
     
         contentImageView.image = NewDefaultImage.generate(of: (contentImageView.frame.size))
-        
-        print(contentImageView.frame.size);
     }
 }
 

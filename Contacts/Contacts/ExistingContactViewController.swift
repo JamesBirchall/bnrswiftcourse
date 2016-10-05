@@ -26,8 +26,6 @@ extension ExistingContactViewController {
         super.viewDidLayoutSubviews()
         
         contentImageView.image = NewDefaultImage.generate(of: (contentImageView.frame.size))
-        
-        print("Existing: \(contentImageView.frame.size)");
     }
     
     override func viewDidLoad() {

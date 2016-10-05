@@ -88,8 +88,6 @@
     viewController.secondName = contact.secondName;
     viewController.locationInIndex = indexPath.row;
     
-    NSLog(@"%@ %@", contact.firstName, contact.secondName);
-    
     [self.navigationController pushViewController:viewController animated:true];
 }
 
@@ -106,8 +104,6 @@
     // update from index location of the contactVC.locationInIndex
     [self.contactsList replaceObjectAtIndex:contactVC.locationInIndex withObject:updatedContact];
     [self.tableView reloadData];
-    
-    NSLog(@"Loaded back to existing");
 }
 
 

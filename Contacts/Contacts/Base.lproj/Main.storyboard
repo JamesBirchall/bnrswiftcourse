@@ -15,6 +15,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Viv-F1-NJO">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Viv-F1-NJO" id="cnK-8N-BME">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="q3N-D8-7Q8" kind="presentation" id="Pcw-Sc-xvF"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="hoQ-uZ-33c" id="ESN-gS-wBg"/>
                             <outlet property="delegate" destination="hoQ-uZ-33c" id="ycr-Iy-zHv"/>
@@ -27,9 +40,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="h1x-0K-9qd" kind="presentation" identifier="ExistingContactSegue" id="vsO-gX-fkg"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DUZ-4q-umN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -177,34 +187,20 @@
                                 <frame key="frameInset" minX="68" minY="234" width="240" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WJf-hG-e2c">
-                                <frame key="frameInset" minY="20" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem id="IoQ-di-Rlx">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ba6-Xh-dNr">
-                                            <connections>
-                                                <segue destination="q0O-nl-dlQ" kind="unwind" unwindAction="cancelToContactsViewController:" id="9E2-eY-QZS"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="rPf-pE-yZ1">
-                                            <connections>
-                                                <segue destination="q0O-nl-dlQ" kind="unwind" unwindAction="updateExistingContact:" id="8kE-n8-e01"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="BHu-z0-Nci">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zvj-pw-GXW">
                             <connections>
-                                <segue destination="q0O-nl-dlQ" kind="unwind" unwindAction="cancelToContactsViewController:" id="TXM-hV-rsY"/>
+                                <segue destination="q0O-nl-dlQ" kind="unwind" unwindAction="cancelToContactsViewController:" id="Qar-Xe-aPc"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="rcO-3p-oRf"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="rcO-3p-oRf">
+                            <connections>
+                                <segue destination="q0O-nl-dlQ" kind="unwind" unwindAction="updateExistingContact:" id="gve-Xf-koG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="contentImageView" destination="hbx-iG-afR" id="gAs-fX-ruA"/>
@@ -215,7 +211,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MFA-PD-hgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="q0O-nl-dlQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2273" y="800"/>
+            <point key="canvasLocation" x="2273" y="770"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RN4-hh-6ew">
+            <objects>
+                <navigationController id="q3N-D8-7Q8" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="25v-f9-lUL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="h1x-0K-9qd" kind="relationship" relationship="rootViewController" id="99t-4y-FO5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Wa-ER-jgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2273" y="20"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TMY-0i-qgP">
